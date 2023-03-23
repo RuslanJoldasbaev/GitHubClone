@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="12dp"
+    android:background="#5A5555"
+    android:padding="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:background="#201f24">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/item_profile_img"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="18dp"
+            android:padding="8dp"
+            android:src="@drawable/rus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_text_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="RuslanJoldasbaev"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@id/item_profile_img"
+            app:layout_constraintStart_toEndOf="@id/item_profile_img"
+            app:layout_constraintTop_toTopOf="@id/item_profile_img" />
+
+        <TextView
+            android:id="@+id/item_text_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LogoCarQuiz"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/item_profile_img"
+            app:layout_constraintTop_toBottomOf="@id/item_profile_img" />
+
+        <ImageView
+            android:id="@+id/star"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:padding="8dp"
+            android:src="@drawable/star"
+            app:layout_constraintStart_toStartOf="@id/item_text_project"
+            app:layout_constraintTop_toBottomOf="@id/item_text_project" />
+
+        <TextView
+            android:id="@+id/item_text_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@id/star"
+            app:layout_constraintStart_toEndOf="@id/star"
+            app:layout_constraintTop_toTopOf="@id/star" />
+
+        <ImageView
+            android:id="@+id/circle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:padding="10dp"
+            android:src="@drawable/moon"
+            app:layout_constraintBottom_toBottomOf="@id/star"
+            app:layout_constraintStart_toEndOf="@id/item_text_star"
+            app:layout_constraintTop_toTopOf="@id/star" />
+
+        <TextView
+            android:id="@+id/item_circle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kotlin"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@id/circle"
+            app:layout_constraintStart_toEndOf="@id/circle"
+            app:layout_constraintTop_toTopOf="@id/circle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
