@@ -3,20 +3,37 @@ package com.example.github.ui.login
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.github.R
+import com.example.github.data.local.LocalStorage
 import com.example.github.databinding.FragmentLoginBinding
+import com.example.github.presentation.MainViewModel
+import com.example.github.presentation.SearchViewModel
 import com.example.github.utils.toast
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var viewModel: MainViewModel
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentLoginBinding.bind(view)
+
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+        )[MainViewModel::class.java]
 
         binding.apply {
             tilUrl.visibility = View.GONE
@@ -43,7 +60,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 enterpriseText.visibility = View.VISIBLE
             }
 
-
         }
     }
 
@@ -55,10 +71,28 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (code != null) {
                 //get Access Token zapros ketedi codedi alg'annan son'
                 toast("Login success: $code")
+                lifecycleScope.launchWhenResumed {
+                    viewModel.getAccessToken(code)
+                }
+                findNavController().navigate(
+                    LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                )
             } else if ((uri.getQueryParameter("error")) != null) {
                 toast("Something went wrong!")
             }
+            initObservers()
         }
 
+    }
+
+    private fun initObservers() {
+        viewModel.getAccessTokenFlow.onEach {
+            LocalStorage().isLogin = true
+            LocalStorage().token = it.access_token
+        }.launchIn(lifecycleScope)
+
+        viewModel.messageFlow.onEach {
+            toast("Token kelmey qaldi")
+        }
     }
 }

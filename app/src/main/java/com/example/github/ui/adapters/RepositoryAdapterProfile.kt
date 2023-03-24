@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.github.R
 import com.example.github.data.models.GetUserProfileInfo
 import com.example.github.databinding.ItemProfileBinding
-import com.example.github.databinding.ItemRepositoryBinding
 
 class RepositoryAdapterProfile :
     ListAdapter<GetUserProfileInfo, RepositoryAdapterProfile.RepositoryProfileViewHolder>(

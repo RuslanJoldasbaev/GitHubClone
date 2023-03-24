@@ -19,9 +19,8 @@ class SplashFragment : Fragment(R.layout.frament_splash) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FramentSplashBinding.bind(view)
-        LocalStorage().isRegister = true
 
-        if (LocalStorage().isRegister) {
+        if (LocalStorage().isLogin) {
             lifecycleScope.launchWhenResumed {
                 delay(200)
                 findNavController().navigate(

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.github.R
-import com.example.github.data.models.GetUserProfileInfo
 import com.example.github.data.models.RepositoryItem
 import com.example.github.databinding.ItemRepositoryBinding
 

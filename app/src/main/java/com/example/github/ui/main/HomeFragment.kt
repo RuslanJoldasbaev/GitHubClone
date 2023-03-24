@@ -1,11 +1,13 @@
 package com.example.github.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.github.MainActivity
 import com.example.github.R
+import com.example.github.data.local.LocalStorage
 import com.example.github.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -17,6 +19,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding = FragmentHomeBinding.bind(view)
 
         binding.apply {
+
+            Log.d("TTTT","")
+            print(LocalStorage().token)
             linear4.setOnClickListener {
                 findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToRepositoriesFragment()

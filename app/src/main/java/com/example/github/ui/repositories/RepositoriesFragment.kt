@@ -30,11 +30,11 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
             ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
         )[MainViewModel::class.java]
 
+        binding.recyclerView.adapter = adapter
+
         lifecycleScope.launchWhenResumed {
             viewModel.getUserRepositories()
         }
-
-        binding.recyclerView.adapter = adapter
 
         binding.apply {
             icBackRepo.setOnClickListener {
