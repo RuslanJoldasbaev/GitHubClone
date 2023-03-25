@@ -22,11 +22,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var binding: FragmentSearchBinding
     private val adapter = RepositoryAdapter()
-    private val viewModel by viewModel<SearchViewModel>()
+    private lateinit var viewModel: SearchViewModel
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+        )[SearchViewModel::class.java]
 
         binding = FragmentSearchBinding.bind(view)
 
@@ -43,8 +48,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
             searchRepository.addTextChangedListener {
-                val text = it.toString()
-                val searchValue = "%$text%"
+                val searchValue = it.toString()
                 lifecycleScope.launchWhenResumed {
                     viewModel.searchRepositoriesByRepositoryName(searchValue)
                 }

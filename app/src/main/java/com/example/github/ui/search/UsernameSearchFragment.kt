@@ -20,11 +20,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class UsernameSearchFragment : Fragment(R.layout.fragment_search_username) {
     private lateinit var binding: FragmentSearchUsernameBinding
     private val adapter = UsernameSearchAdapter()
-    private val viewModel by viewModel<SearchViewModel>()
+    private lateinit var viewModel: SearchViewModel
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+        )[SearchViewModel::class.java]
 
         binding = FragmentSearchUsernameBinding.bind(view)
 

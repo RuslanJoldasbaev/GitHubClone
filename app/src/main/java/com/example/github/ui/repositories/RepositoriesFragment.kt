@@ -21,10 +21,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
     private lateinit var binding: FragmentRepositoriesBinding
     private val adapter = RepositoryAdapter()
-    private val viewModel by viewModel<MainViewModel>()
+    private lateinit var viewModel: MainViewModel
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+        )[MainViewModel::class.java]
 
         binding = FragmentRepositoriesBinding.bind(view)
 
