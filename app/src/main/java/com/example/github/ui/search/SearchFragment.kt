@@ -43,7 +43,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
             searchRepository.addTextChangedListener {
-                val searchValue = it.toString()
+                val text = it.toString()
+                val searchValue = "%$text%"
                 lifecycleScope.launchWhenResumed {
                     viewModel.searchRepositoriesByRepositoryName(searchValue)
                 }

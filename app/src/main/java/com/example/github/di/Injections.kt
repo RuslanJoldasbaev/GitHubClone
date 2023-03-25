@@ -15,21 +15,23 @@ val appModule = module {
         MainRepository(api = get())
     }
 
-    single<GitHubInterceptor> {
-        GitHubInterceptor()
-    }
-
     single<Retrofit> {
         val httpLogginInterceptor = HttpLoggingInterceptor().setLevel(
             HttpLoggingInterceptor.Level.BODY
         )
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(GitHubInterceptor())
-            .addInterceptor(httpLogginInterceptor).build()
+        val interceptor = GitHubInterceptor()
 
-        val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://api.github.com").client(client).build()
+        val client = OkHttpClient.Builder()
+            .addInterceptor(httpLogginInterceptor)
+            .addInterceptor(interceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://api.github.com")
+            .client(client)
+            .build()
         retrofit
 
     }
