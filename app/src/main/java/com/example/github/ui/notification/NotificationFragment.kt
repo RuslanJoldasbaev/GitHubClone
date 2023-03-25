@@ -9,6 +9,7 @@ import com.example.github.databinding.FragmentNotificationBinding
 class NotificationFragment : Fragment(R.layout.fragment_notification) {
     private lateinit var binding: FragmentNotificationBinding
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

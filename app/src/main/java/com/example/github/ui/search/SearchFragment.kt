@@ -30,25 +30,38 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         binding = FragmentSearchBinding.bind(view)
 
+
         initListeners()
         initObservers()
     }
 
     private fun initListeners() {
-        binding.recyclerView.adapter = adapter
-
         binding.apply {
+            linearSearch1.visibility = View.GONE
+            linearSearch2.visibility = View.GONE
+
             icBack.setOnClickListener {
                 findNavController().popBackStack()
             }
 
-            searchRepository.addTextChangedListener {
-                val text = it.toString()
-                val searchValue = "%$text%"
-                lifecycleScope.launchWhenResumed {
-                    viewModel.searchRepositoriesByRepositoryName(searchValue)
+            searchMenu.addTextChangedListener {
+                val searchMenu = it.toString()
+                linearSearch1.visibility = View.VISIBLE
+                linearSearch2.visibility = View.VISIBLE
+
+                linearSearch1.setOnClickListener {
+                    findNavController().navigate(
+                        SearchFragmentDirections.actionSearchFragmentToRepositorySearchFragment(searchMenu)
+                    )
+                }
+
+                linearSearch2.setOnClickListener {
+                    findNavController().navigate(
+                        SearchFragmentDirections.actionSearchFragmentToRepositorySearchFragment(searchMenu)
+                    )
                 }
             }
+
         }
     }
 

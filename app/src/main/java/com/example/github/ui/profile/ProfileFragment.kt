@@ -18,18 +18,18 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var binding: FragmentProfileBinding
     private val adapter = RepositoryAdapterProfile()
-    private lateinit var viewModel: MainViewModel
+    private val viewModel by viewModel<MainViewModel>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-        )[MainViewModel::class.java]
-
         binding = FragmentProfileBinding.bind(view)
+
+        lifecycleScope.launchWhenResumed {
+            viewModel.getUserProfileInfo()
+            viewModel.getUserRepositories()
+        }
 
         initListeners()
         initObservers()
@@ -45,10 +45,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 findNavController().navigate(
                     ProfileFragmentDirections.actionProfileFragmentToRepoProfileFragment()
                 )
-            }
-            lifecycleScope.launchWhenResumed {
-                viewModel.getUserProfileInfo()
-                viewModel.getUserRepositories()
             }
 
         }

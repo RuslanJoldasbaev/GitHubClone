@@ -1,20 +1,14 @@
 package com.example.github.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.github.data.models.*
-import com.example.github.data.remote.GitHubApi
-import com.example.github.data.remote.RetrofitHelper
 import com.example.github.domain.MainRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class SearchViewModel(application: Application) : AndroidViewModel(application) {
-
-    val repo = MainRepository(RetrofitHelper.getInstance().create(GitHubApi::class.java))
+class SearchViewModel(private val repo:MainRepository) : ViewModel() {
 
     val searchUsersByUsernameFlow = MutableSharedFlow<List<UserItems>>()
     val searchRepositoriesByRepositoryNameFlow =
