@@ -16,20 +16,18 @@ interface GitHubApi {
     ): Response<TokenResponseData>
 
     @GET("/user")
-    suspend fun getUserProfileInfo(@Header("Authorization") token: String): Response<GetUserProfileInfo>
+    suspend fun getUserProfileInfo(): Response<GetUserProfileInfo>
 
     @GET("/user/repos")
-    suspend fun getUserRepositories(@Header("Authorization") token: String): Response<List<RepositoryItem>>
+    suspend fun getUserRepositories(): Response<List<RepositoryItem>>
 
     @GET("/search/users?q")
     suspend fun searchUsersByUsername(
         @Query("q") username: String,
-        @Header("Authorization") token: String
     ): Response<SearchUsersByUsername>
 
     @GET("/search/repositories?q")
     suspend fun searchRepositoriesByRepositoryName(
         @Query("q") name: String,
-        @Header("Authorization") token: String
     ): Response<SearchRepositoriesByRepositoryName>
 }

@@ -1,6 +1,5 @@
 package com.example.github.domain
 
-import com.example.github.data.local.LocalStorage
 import com.example.github.data.models.ResultData
 import com.example.github.data.remote.GitHubApi
 import kotlinx.coroutines.flow.catch
@@ -9,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 class MainRepository(val api: GitHubApi) {
 
     suspend fun getUserProfileInfo() = flow {
-        val response = api.getUserProfileInfo("Bearer ${LocalStorage().token}")
+        val response = api.getUserProfileInfo()
         if (response.isSuccessful) {
             emit(ResultData.Success(response.body()!!))
         } else {
@@ -20,7 +19,7 @@ class MainRepository(val api: GitHubApi) {
     }
 
     suspend fun getUserRepositories() = flow {
-        val response = api.getUserRepositories("Bearer ${LocalStorage().token}")
+        val response = api.getUserRepositories()
         if (response.isSuccessful) {
             emit(ResultData.Success(response.body()!!))
         } else {
@@ -31,7 +30,7 @@ class MainRepository(val api: GitHubApi) {
     }
 
     suspend fun searchUsersByUsername(login: String) = flow {
-        val response = api.searchUsersByUsername(login, "Bearer ${LocalStorage().token}")
+        val response = api.searchUsersByUsername(login)
         if (response.isSuccessful) {
             emit(ResultData.Success(response.body()!!.items))
         } else {
@@ -43,7 +42,7 @@ class MainRepository(val api: GitHubApi) {
 
     suspend fun searchRepositoriesByRepositoryName(name: String) = flow {
         val response =
-            api.searchRepositoriesByRepositoryName(name, "Bearer ${LocalStorage().token}")
+            api.searchRepositoriesByRepositoryName(name)
         if (response.isSuccessful) {
             emit(ResultData.Success(response.body()!!.items))
         } else {

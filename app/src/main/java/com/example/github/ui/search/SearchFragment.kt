@@ -11,16 +11,18 @@ import com.bumptech.glide.Glide
 import com.example.github.MainActivity
 import com.example.github.R
 import com.example.github.databinding.FragmentSearchBinding
+import com.example.github.presentation.MainViewModel
 import com.example.github.presentation.SearchViewModel
 import com.example.github.ui.adapters.RepositoryAdapter
 import com.example.github.utils.toast
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var binding: FragmentSearchBinding
     private val adapter = RepositoryAdapter()
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel by viewModel<SearchViewModel>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,11 +30,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         binding = FragmentSearchBinding.bind(view)
 
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-        )[SearchViewModel::class.java]
+        initListeners()
+        initObservers()
+    }
 
+    private fun initListeners() {
         binding.recyclerView.adapter = adapter
 
         binding.apply {
@@ -41,15 +43,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
             searchRepository.addTextChangedListener {
-                val text = it.toString()
-                val searchValue = "%$text%"
+                val searchValue = it.toString()
                 lifecycleScope.launchWhenResumed {
                     viewModel.searchRepositoriesByRepositoryName(searchValue)
                 }
             }
         }
-
-        initObservers()
     }
 
     private fun initObservers() {

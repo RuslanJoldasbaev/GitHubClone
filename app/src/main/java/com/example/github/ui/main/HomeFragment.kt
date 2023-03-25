@@ -18,6 +18,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         binding = FragmentHomeBinding.bind(view)
 
+        initListeners()
+    }
+
+    private fun initListeners() {
         binding.apply {
 
             linear4.setOnClickListener {

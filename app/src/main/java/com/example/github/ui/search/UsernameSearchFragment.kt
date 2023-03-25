@@ -15,11 +15,12 @@ import com.example.github.ui.adapters.UsernameSearchAdapter
 import com.example.github.utils.toast
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UsernameSearchFragment : Fragment(R.layout.fragment_search_username) {
     private lateinit var binding: FragmentSearchUsernameBinding
-    private lateinit var viewModel: SearchViewModel
     private val adapter = UsernameSearchAdapter()
+    private val viewModel by viewModel<SearchViewModel>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,11 +28,11 @@ class UsernameSearchFragment : Fragment(R.layout.fragment_search_username) {
 
         binding = FragmentSearchUsernameBinding.bind(view)
 
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-        )[SearchViewModel::class.java]
+        initListeners()
+        initObservers()
+    }
 
+    private fun initListeners() {
         binding.recyclerView.adapter = adapter
 
         binding.apply {
@@ -46,8 +47,6 @@ class UsernameSearchFragment : Fragment(R.layout.fragment_search_username) {
                 }
             }
         }
-
-        initObservers()
     }
 
     private fun initObservers() {
