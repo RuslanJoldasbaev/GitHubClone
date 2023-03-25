@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.github.MainActivity
 import com.example.github.R
 import com.example.github.databinding.FragmentSearchUsernameBinding
@@ -20,6 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class UsernameSearchFragment : Fragment(R.layout.fragment_search_username) {
     private lateinit var binding: FragmentSearchUsernameBinding
     private val adapter = UsernameSearchAdapter()
+    private val navArgs: UsernameSearchFragmentArgs by navArgs()
     private val viewModel by viewModel<SearchViewModel>()
 
 
@@ -27,6 +29,12 @@ class UsernameSearchFragment : Fragment(R.layout.fragment_search_username) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentSearchUsernameBinding.bind(view)
+
+        val login = navArgs.textSearch
+
+        lifecycleScope.launchWhenResumed {
+            viewModel.searchUsersByUsername(login)
+        }
 
         initListeners()
         initObservers()
@@ -36,15 +44,8 @@ class UsernameSearchFragment : Fragment(R.layout.fragment_search_username) {
         binding.recyclerView.adapter = adapter
 
         binding.apply {
-            icBackRepoSearch.setOnClickListener {
+            icBackUserSearch.setOnClickListener {
                 findNavController().popBackStack()
-            }
-
-            searchRepo.addTextChangedListener {
-                val login = it.toString()
-                lifecycleScope.launchWhenResumed {
-                    viewModel.searchUsersByUsername(login)
-                }
             }
         }
     }

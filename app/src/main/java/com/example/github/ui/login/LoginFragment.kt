@@ -92,6 +92,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         viewModel.messageFlow.onEach {
             toast("Token kelmey qaldi")
-        }
+        }.launchIn(lifecycleScope)
     }
 }

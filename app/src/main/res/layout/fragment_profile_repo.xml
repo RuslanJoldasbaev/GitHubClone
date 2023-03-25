@@ -7,15 +7,15 @@
     android:background="@color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/const_search_user"
+        android:id="@+id/const_repo_prof"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#17181c"
-        android:padding="10dp"
+        android:padding="5dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/ic_back_userSearch"
+            android:id="@+id/ic_back_repo_prof"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -25,18 +25,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
-            android:id="@+id/repository_text"
+            android:id="@+id/repo_text_prof"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:backgroundTint="@color/white"
-            android:text="People"
+            android:layout_margin="16dp"
+            android:text="Repositories"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="18dp"
+            android:textSize="24dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ic_back_userSearch"
+            app:layout_constraintStart_toEndOf="@id/ic_back_repo_prof"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -48,6 +48,6 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/const_search_user"
-        tools:listitem="@layout/item_user" />
+        app:layout_constraintTop_toBottomOf="@id/const_repo_prof"
+        tools:listitem="@layout/item_profile_repo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,12 +32,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             search.setOnClickListener {
                 findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToUsernameSearchFragment()
-                )
-            }
-
-            circlePlus.setOnClickListener {
-                findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToSearchFragment()
                 )
             }

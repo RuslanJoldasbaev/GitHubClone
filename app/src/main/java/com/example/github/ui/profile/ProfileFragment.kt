@@ -3,13 +3,12 @@ package com.example.github.ui.profile
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.github.R
 import com.example.github.databinding.FragmentProfileBinding
 import com.example.github.presentation.MainViewModel
-import com.example.github.ui.adapters.RepositoryAdapter
 import com.example.github.ui.adapters.RepositoryAdapterProfile
 import com.example.github.utils.toast
 import kotlinx.coroutines.flow.launchIn
@@ -37,6 +36,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
             profileRecyclerview.adapter = adapter
 
+            linearProf1.setOnClickListener {
+                findNavController().navigate(
+                    ProfileFragmentDirections.actionProfileFragmentToRepoProfileFragment()
+                )
+            }
             lifecycleScope.launchWhenResumed {
                 viewModel.getUserProfileInfo()
                 viewModel.getUserRepositories()
@@ -65,6 +69,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         viewModel.messageFlow.onEach {
             toast("Mag'liwmat kelmey qaldi")
-        }
+        }.launchIn(lifecycleScope)
     }
 }

@@ -33,9 +33,6 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_usernameSearchFragment"
-            app:destination="@id/usernameSearchFragment" />
     </fragment>
     <fragment
         android:id="@+id/exploreFragment"
@@ -48,7 +45,11 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.github.ui.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_repoProfileFragment"
+            app:destination="@id/repoProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/repositoriesFragment"
         android:name="com.example.github.ui.repositories.RepositoriesFragment"
@@ -56,9 +57,36 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.github.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_repositorySearchFragment"
+            app:destination="@id/repositorySearchFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_usernameSearchFragment"
+            app:destination="@id/usernameSearchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/repositorySearchFragment"
+        android:name="com.example.github.ui.search.RepositorySearchFragment"
+        android:label="RepositorySearchFragment" >
+
+        <argument
+            android:name="textSearch"
+            app:argType="string" />
+
+    </fragment>
     <fragment
         android:id="@+id/usernameSearchFragment"
         android:name="com.example.github.ui.search.UsernameSearchFragment"
-        android:label="UsernameSearchFragment" />
+        android:label="UsernameSearchFragment" >
+
+        <argument
+            android:name="textSearch"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/repoProfileFragment"
+        android:name="com.example.github.ui.profile.RepoProfileFragment"
+        android:label="RepoProfileFragment" />
 </navigation>

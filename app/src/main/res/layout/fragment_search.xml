@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
@@ -26,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/search_repository"
+            android:id="@+id/search_menu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -41,14 +40,63 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <LinearLayout
+        android:id="@+id/linear_search_1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/const_search"
-        tools:listitem="@layout/item_repository" />
+        android:layout_height="wrap_content"
+        android:background="#17181c"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/const_search">
 
+        <ImageView
+            android:id="@+id/img_search_item_1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="8dp"
+            android:src="@drawable/book"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/text_search_item_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:text="Repositories with"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_search_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#17181c"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/linear_search_1">
+
+        <ImageView
+            android:id="@+id/img_search_item_2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="8dp"
+            android:src="@drawable/profile"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/text_search_item_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:text="People with"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
