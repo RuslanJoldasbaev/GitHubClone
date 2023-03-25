@@ -31,9 +31,9 @@ class MainRepository(val api: GitHubApi) {
     }
 
     suspend fun searchUsersByUsername(login: String) = flow {
-        val response = api.searchUsersByUsername(login)
+        val response = api.searchUsersByUsername(login, "Bearer ${LocalStorage().token}")
         if (response.isSuccessful) {
-            emit(ResultData.Success(response.body()!!))
+            emit(ResultData.Success(response.body()!!.items))
         } else {
             emit(ResultData.Message(response.message()))
         }
@@ -41,10 +41,11 @@ class MainRepository(val api: GitHubApi) {
         emit(ResultData.Error(it))
     }
 
-    suspend fun searchRepositoriesByRepositoryName(searchValue: String) = flow {
-        val response = api.searchRepositoriesByRepositoryName(searchValue)
+    suspend fun searchRepositoriesByRepositoryName(name: String) = flow {
+        val response =
+            api.searchRepositoriesByRepositoryName(name, "Bearer ${LocalStorage().token}")
         if (response.isSuccessful) {
-            emit(ResultData.Success(response.body()!!.items[0].name))
+            emit(ResultData.Success(response.body()!!.items))
         } else {
             emit(ResultData.Message(response.message()))
         }

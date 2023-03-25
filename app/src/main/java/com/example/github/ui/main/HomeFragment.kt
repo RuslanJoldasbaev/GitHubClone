@@ -20,7 +20,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         binding.apply {
 
-            Log.d("TTTT", LocalStorage().token)
             linear4.setOnClickListener {
                 findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToRepositoriesFragment()

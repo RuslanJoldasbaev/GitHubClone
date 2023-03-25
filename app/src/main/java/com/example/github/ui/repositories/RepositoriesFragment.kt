@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.example.github.MainActivity
 import com.example.github.R
 import com.example.github.databinding.FragmentRepositoriesBinding
 import com.example.github.presentation.MainViewModel
@@ -54,5 +56,10 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
         viewModel.messageFlow.onEach {
             toast("Mag'liwmat kelmey qaldi")
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).visilityOfBottomNavigation(View.GONE)
     }
 }

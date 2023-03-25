@@ -20,7 +20,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="18dp"
             android:padding="8dp"
-            android:src="@drawable/rus"
+            android:src="@drawable/dot"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

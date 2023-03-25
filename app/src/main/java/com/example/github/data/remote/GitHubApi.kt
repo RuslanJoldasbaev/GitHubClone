@@ -6,26 +6,6 @@ import retrofit2.http.*
 
 interface GitHubApi {
 
-    @GET("{{BASE_URL}}/user")
-    @FormUrlEncoded
-    suspend fun getUserProfileInfo(@Header("Authorization") token: String): Response<GetUserProfileInfo>
-
-    @GET("{{BASE_URL}}/user/repos")
-    @FormUrlEncoded
-    suspend fun getUserRepositories(@Header("Authorization") token: String): Response<List<RepositoryItem>>
-
-    @GET("{{BASE_URL}}/search/users?q=yourtext")
-    @FormUrlEncoded
-    suspend fun searchUsersByUsername(
-        @Query("login") login: String
-    ): Response<SearchUsersByUsername>
-
-    @GET("{{BASE_URL}}/search/repositories?q=Chat App")
-    @FormUrlEncoded
-    suspend fun searchRepositoriesByRepositoryName(
-        @Query("name") name: String
-    ): Response<SearchRepositoriesByRepositoryName>
-
     @Headers("Accept: application/json")
     @POST("https://github.com/login/oauth/access_token")
     @FormUrlEncoded
@@ -35,4 +15,21 @@ interface GitHubApi {
         @Field("code") code: String
     ): Response<TokenResponseData>
 
+    @GET("/user")
+    suspend fun getUserProfileInfo(@Header("Authorization") token: String): Response<GetUserProfileInfo>
+
+    @GET("/user/repos")
+    suspend fun getUserRepositories(@Header("Authorization") token: String): Response<List<RepositoryItem>>
+
+    @GET("/search/users?q")
+    suspend fun searchUsersByUsername(
+        @Query("q") username: String,
+        @Header("Authorization") token: String
+    ): Response<SearchUsersByUsername>
+
+    @GET("/search/repositories?q")
+    suspend fun searchRepositoriesByRepositoryName(
+        @Query("q") name: String,
+        @Header("Authorization") token: String
+    ): Response<SearchRepositoriesByRepositoryName>
 }

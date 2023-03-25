@@ -14,5 +14,5 @@ class LocalStorage {
 
     var token by StringPreference(pref)
 
-    var isReg by BooleanPreference(pref)
+    var isLog by BooleanPreference(pref)
 }

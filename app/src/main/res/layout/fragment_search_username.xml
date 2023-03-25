@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/const_search_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#17181c"
@@ -37,4 +39,14 @@
             app:layout_constraintStart_toEndOf="@id/ic_back_repoSearch"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/const_search_user"
+        tools:listitem="@layout/item_user" />
 </androidx.constraintlayout.widget.ConstraintLayout>

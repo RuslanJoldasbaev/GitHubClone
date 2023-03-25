@@ -1,10 +1,12 @@
 package com.example.github.ui.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.example.github.R
 import com.example.github.data.models.RepositoryItem
 import com.example.github.databinding.ItemRepositoryBinding
@@ -19,6 +21,9 @@ class RepositoryAdapter :
             val d = getItem(adapterPosition)
 
             binding.apply {
+                Glide.with(profileImgItem)
+                    .load(d.owner.avatar_url)
+                    .into(profileImgItem)
 
                 textNameItem.text = d.name
                 textUsernameItem.text = d.owner.login

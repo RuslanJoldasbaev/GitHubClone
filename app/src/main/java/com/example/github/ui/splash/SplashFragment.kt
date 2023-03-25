@@ -20,8 +20,7 @@ class SplashFragment : Fragment(R.layout.frament_splash) {
 
         binding = FramentSplashBinding.bind(view)
 
-        val isreg = false
-        if (isreg) {
+        if (LocalStorage().isLog) {
             lifecycleScope.launchWhenResumed {
                 delay(200)
                 findNavController().navigate(

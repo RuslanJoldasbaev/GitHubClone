@@ -74,9 +74,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 lifecycleScope.launchWhenResumed {
                     viewModel.getAccessToken(code)
                 }
-                /*findNavController().navigate(
+                findNavController().navigate(
                     LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                )*/
+                )
             } else if ((uri.getQueryParameter("error")) != null) {
                 toast("Something went wrong!")
             }
@@ -87,7 +87,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun initObservers() {
         viewModel.getAccessTokenFlow.onEach {
-            LocalStorage().isReg = true
+            LocalStorage().isLog = true
             LocalStorage().token = it.access_token
         }.launchIn(lifecycleScope)
 

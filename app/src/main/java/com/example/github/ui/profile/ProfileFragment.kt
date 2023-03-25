@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.example.github.R
 import com.example.github.databinding.FragmentProfileBinding
 import com.example.github.presentation.MainViewModel
@@ -42,6 +43,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
             lifecycleScope.launchWhenResumed {
                 viewModel.getUserProfileInfo()
+                viewModel.getUserRepositories()
             }
 
         }
@@ -55,7 +57,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 textFollowerNumber.text = it.followers.toString()
                 textFollowingNumber.text = it.following.toString()
                 textProfileItemNum1.text = it.public_repos.toString()
+                Glide.with(this@ProfileFragment)
+                    .load(it.avatar_url)
+                    .into(profileImg)
             }
+        }.launchIn(lifecycleScope)
+
+        viewModel.getUserRepositoriesFlow.onEach {
+            adapter.submitList(it)
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {

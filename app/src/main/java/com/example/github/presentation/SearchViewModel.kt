@@ -3,9 +3,7 @@ package com.example.github.presentation
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.github.data.models.ResultData
-import com.example.github.data.models.SearchRepositoriesByRepositoryName
-import com.example.github.data.models.SearchUsersByUsername
+import com.example.github.data.models.*
 import com.example.github.data.remote.GitHubApi
 import com.example.github.data.remote.RetrofitHelper
 import com.example.github.domain.MainRepository
@@ -17,9 +15,9 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     val repo = MainRepository(RetrofitHelper.getInstance().create(GitHubApi::class.java))
 
-    val searchUsersByUsernameFlow = MutableSharedFlow<SearchUsersByUsername>()
+    val searchUsersByUsernameFlow = MutableSharedFlow<List<UserItems>>()
     val searchRepositoriesByRepositoryNameFlow =
-        MutableSharedFlow<String>()
+        MutableSharedFlow<List<RepositoryItem>>()
     val messageFlow = MutableSharedFlow<String>()
     val errorFlow = MutableSharedFlow<Throwable>()
 
@@ -40,8 +38,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         }.launchIn(viewModelScope)
     }
 
-    suspend fun searchRepositoriesByRepositoryName(searchValue: String) {
-        repo.searchRepositoriesByRepositoryName(searchValue).onEach {
+    suspend fun searchRepositoriesByRepositoryName(name: String) {
+        repo.searchRepositoriesByRepositoryName(name).onEach {
             when (it) {
                 is ResultData.Success -> {
                     searchRepositoriesByRepositoryNameFlow.emit(it.data)

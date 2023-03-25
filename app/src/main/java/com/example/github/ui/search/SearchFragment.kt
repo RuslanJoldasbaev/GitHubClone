@@ -1,20 +1,21 @@
 package com.example.github.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.example.github.MainActivity
 import com.example.github.R
-import com.example.github.data.local.LocalStorage
 import com.example.github.databinding.FragmentSearchBinding
-import com.example.github.presentation.MainViewModel
 import com.example.github.presentation.SearchViewModel
 import com.example.github.ui.adapters.RepositoryAdapter
-import com.example.github.ui.adapters.RepositoryAdapterProfile
+import com.example.github.utils.toast
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var binding: FragmentSearchBinding
@@ -38,7 +39,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             icBack.setOnClickListener {
                 findNavController().popBackStack()
             }
-            Log.d("TTTT", LocalStorage().token)
 
             searchRepository.addTextChangedListener {
                 val text = it.toString()
@@ -48,5 +48,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 }
             }
         }
+
+        initObservers()
+    }
+
+    private fun initObservers() {
+        viewModel.searchRepositoriesByRepositoryNameFlow.onEach {
+            adapter.submitList(it)
+        }.launchIn(lifecycleScope)
+
+        viewModel.messageFlow.onEach {
+            toast("Mag'liwmat kelmey qaldi")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).visilityOfBottomNavigation(View.GONE)
     }
 }

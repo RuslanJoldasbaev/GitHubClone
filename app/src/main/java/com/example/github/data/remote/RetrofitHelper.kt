@@ -14,7 +14,7 @@ object RetrofitHelper {
 
     fun getInstance(): Retrofit {
         val retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://todo.paydali.uz").client(client).build()
+            .baseUrl("https://api.github.com").client(client).build()
         return retrofit
     }
 }
