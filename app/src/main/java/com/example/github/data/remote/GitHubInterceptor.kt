@@ -1,4 +1,4 @@
-package com.example.github.di
+package com.example.github.data.remote
 
 import com.example.github.data.local.LocalStorage
 import okhttp3.Interceptor

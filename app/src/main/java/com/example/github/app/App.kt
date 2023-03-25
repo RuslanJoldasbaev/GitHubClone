@@ -1,8 +1,6 @@
 package com.example.github.app
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
-import com.example.github.BuildConfig
 import com.example.github.di.appModule
 import com.example.github.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
