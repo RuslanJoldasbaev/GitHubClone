@@ -2,9 +2,12 @@ package com.example.github.di
 
 import com.example.github.data.remote.GitHubApi
 import com.example.github.data.remote.GitHubInterceptor
-import com.example.github.domain.MainRepository
+import com.example.github.domain.repository.MainRepository
+import com.example.github.domain.repository.MainRepositoryImpl
 import com.example.github.presentation.MainViewModel
 import com.example.github.presentation.SearchViewModel
+import com.example.githubclone.domain.usecase.MainUseCase
+import com.example.githubclone.domain.usecase.impl.MainUseCaseImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -14,7 +17,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 val appModule = module {
 
     single<MainRepository> {
-        MainRepository(api = get())
+        MainRepositoryImpl(api = get())
+    }
+
+    factory<MainUseCase> {
+        MainUseCaseImpl(repo = get())
     }
 
     single<Retrofit> {
@@ -40,12 +47,12 @@ val appModule = module {
 }
 
 val viewModelModule = module {
-    single<MainViewModel> {
-        MainViewModel(repo = get())
+    factory<MainViewModel> {
+        MainViewModel(useCase = get())
     }
 
-    single<SearchViewModel> {
-        SearchViewModel(repo = get())
+    factory<SearchViewModel> {
+        SearchViewModel(useCase = get())
     }
 }
 

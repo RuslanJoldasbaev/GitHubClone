@@ -3,12 +3,12 @@ package com.example.github.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.github.data.models.*
-import com.example.github.domain.MainRepository
+import com.example.githubclone.domain.usecase.MainUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class SearchViewModel(private val repo:MainRepository) : ViewModel() {
+class SearchViewModel(private val useCase: MainUseCase) : ViewModel() {
 
     val searchUsersByUsernameFlow = MutableSharedFlow<List<UserItems>>()
     val searchRepositoriesByRepositoryNameFlow =
@@ -18,7 +18,7 @@ class SearchViewModel(private val repo:MainRepository) : ViewModel() {
 
 
     suspend fun searchUsersByUsername(login: String) {
-        repo.searchUsersByUsername(login).onEach {
+        useCase.searchUsersByUsername(login).onEach {
             when (it) {
                 is ResultData.Success -> {
                     searchUsersByUsernameFlow.emit(it.data)
@@ -34,7 +34,7 @@ class SearchViewModel(private val repo:MainRepository) : ViewModel() {
     }
 
     suspend fun searchRepositoriesByRepositoryName(name: String) {
-        repo.searchRepositoriesByRepositoryName(name).onEach {
+        useCase.searchRepositoriesByRepositoryName(name).onEach {
             when (it) {
                 is ResultData.Success -> {
                     searchRepositoriesByRepositoryNameFlow.emit(it.data)

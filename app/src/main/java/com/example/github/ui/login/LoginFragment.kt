@@ -70,8 +70,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (code != null) {
                 //get Access Token zapros ketedi codedi alg'annan son'
                 toast("Login success: $code")
+                LocalStorage().code = code
                 lifecycleScope.launchWhenResumed {
-                    viewModel.getAccessToken(code)
+                    viewModel.getAccessToken()
                 }
                 findNavController().navigate(
                     LoginFragmentDirections.actionLoginFragmentToHomeFragment()
@@ -87,7 +88,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun initObservers() {
         viewModel.getAccessTokenFlow.onEach {
             LocalStorage().isLog = true
-            LocalStorage().token = it.access_token
+            LocalStorage().token = it
         }.launchIn(lifecycleScope)
 
         viewModel.messageFlow.onEach {
