@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class MainViewModel(private val repo:MainRepository) : ViewModel() {
+class MainViewModel(private val repo: MainRepository) : ViewModel() {
 
     val getUserProfileInfoFlow = MutableSharedFlow<GetUserProfileInfo>()
     val getUserRepositoriesFlow = MutableSharedFlow<List<RepositoryItem>>()

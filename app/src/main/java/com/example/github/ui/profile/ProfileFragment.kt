@@ -58,7 +58,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 textFollowerNumber.text = it.followers.toString()
                 textFollowingNumber.text = it.following.toString()
                 textProfileItemNum1.text = it.public_repos.toString()
-                Glide.with(this@ProfileFragment)
+                Glide.with(profileImg)
                     .load(it.avatar_url)
                     .into(profileImg)
             }
